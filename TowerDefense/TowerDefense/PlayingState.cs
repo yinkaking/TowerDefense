@@ -65,7 +65,7 @@ namespace TowerDefense
 
             foreach (Ufo ufo in ufos.Objects)
             {
-                if (ufo.CollidesWith(homeBase))
+                if (ufo.CollidesWith(homeBase) && ufo.Visible)
                 {
                     TowerDefense.GameStateManager.SwitchTo(TowerDefense.GAMEOVERSTATE);
                 }
