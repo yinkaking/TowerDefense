@@ -63,9 +63,13 @@ namespace TowerDefense
                 }).FirstOrDefault());
             }
 
-            foreach (Bullet bullet in bullets.Objects)
+            foreach (Ufo ufo in ufos.Objects)
             {
-                foreach (Ufo ufo in ufos.Objects)
+                if (ufo.CollidesWith(homeBase))
+                {
+                    TowerDefense.GameStateManager.SwitchTo(TowerDefense.GAMEOVERSTATE);
+                }
+                foreach (Bullet bullet in bullets.Objects)
                 {
                     if (bullet.CollidesWith(ufo))
                     {
@@ -73,6 +77,19 @@ namespace TowerDefense
                         ufo.Visible = false;
                     }
                 }
+                
+            }
+
+            if(ufos.Objects.All(x =>
+            {
+                if(x.Visible == false)
+                {
+                    return true;
+                }
+                return false;
+            }))
+            {
+                TowerDefense.GameStateManager.SwitchTo(TowerDefense.WINSTATE);
             }
         }
 

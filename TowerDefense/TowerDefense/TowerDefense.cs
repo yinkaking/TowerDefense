@@ -16,7 +16,7 @@ namespace TowerDefense
     /// </summary>
     public class TowerDefense : GameEnvironment 
     {
-        public const string PLAYINGSTATE = "ps";
+        public const string PLAYINGSTATE = "ps", WINSTATE = "win", GAMEOVERSTATE = "gos";
 
         public TowerDefense() 
         {
@@ -36,6 +36,8 @@ namespace TowerDefense
 
             // TODO: use this.Content to load your game content here
             GameStateManager.AddGameState(PLAYINGSTATE, new PlayingState());
+            GameStateManager.AddGameState(WINSTATE, new WinState());
+            GameStateManager.AddGameState(GAMEOVERSTATE, new GameOverState());
             GameStateManager.SwitchTo(PLAYINGSTATE);
         }
     }
