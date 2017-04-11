@@ -46,13 +46,36 @@ namespace TowerDefense
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            foreach (AutoFireCannon item in cannons.Objects)
+            foreach (AutoFireCannon cannon in cannons.Objects)
             {
-                if (item.HasFired)
+                if (cannon.HasFired)
                 {
-                    this.bullets.Add(new Bullet(item.Position, (item.AngularDirection * 120)));
+                    this.bullets.Add(new Bullet(cannon.Position, (cannon.AngularDirection * 120)));
+                }
+
+                cannon.LookAt(ufos.Objects.Where(x => 
+                {
+                    if (x.Visible == true)
+                    {
+                        return true;
+                    }
+                    return false;
+                }).FirstOrDefault());
+            }
+
+            foreach (Bullet bullet in bullets.Objects)
+            {
+                foreach (Ufo ufo in ufos.Objects)
+                {
+                    if (bullet.CollidesWith(ufo))
+                    {
+                        bullet.Visible = false;
+                        ufo.Visible = false;
+                    }
                 }
             }
         }
+
+
     }
 }
