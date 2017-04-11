@@ -16,6 +16,7 @@ namespace TowerDefense
     /// </summary>
     public class TowerDefense : GameEnvironment 
     {
+        public const string PLAYINGSTATE = "ps";
 
         public TowerDefense() 
         {
@@ -34,6 +35,8 @@ namespace TowerDefense
             SetFullScreen(false);
 
             // TODO: use this.Content to load your game content here
+            GameStateManager.AddGameState(PLAYINGSTATE, new PlayingState());
+            GameStateManager.SwitchTo(PLAYINGSTATE);
         }
     }
 }
