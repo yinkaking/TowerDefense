@@ -10,11 +10,12 @@ namespace TowerDefense
     {
 
         SpriteGameObject homeBase;
-        GameObjectList ufos;
+        GameObjectList ufos, cannons;
 
         public PlayingState()
         {
             ufos = new GameObjectList();
+            cannons = new GameObjectList();
             homeBase = new SpriteGameObject("spr_homebase");
             homeBase.Origin = homeBase.Sprite.Center;
             homeBase.Position = new Vector2(900, 340);
@@ -28,6 +29,16 @@ namespace TowerDefense
             this.Add(new SpriteGameObject("spr_background"));
             this.Add(homeBase);
             this.Add(ufos);
+            this.Add(cannons);
+        }
+
+        public override void HandleInput(InputHelper inputHelper)
+        {
+            base.HandleInput(inputHelper);
+            if(inputHelper.MouseLeftButtonPressed())
+            {
+                cannons.Add(new AutoFireCannon(inputHelper.MousePosition));
+            }
         }
     }
 }
